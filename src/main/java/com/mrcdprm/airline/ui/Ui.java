@@ -17,7 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -223,6 +226,35 @@ public final class Ui {
         final ClipboardContent content = new ClipboardContent();
         content.putString(text);
         Clipboard.getSystemClipboard().setContent(content);
+    }
+
+    /**
+     * Elle yazılabilen sayı kutusu: harf ya da boş metin yazılıp Enter'a basılınca istisna atmak yerine
+     * önceki değer geri gelir; sınır dışı sayılar en yakın sınıra çekilir.
+     */
+    public static Spinner<Integer> numberSpinner(int min, int max, int value, int step) {
+        final SpinnerValueFactory.IntegerSpinnerValueFactory factory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, value, step);
+        factory.setConverter(new javafx.util.StringConverter<>() {
+            @Override
+            public String toString(Integer n) {
+                return n == null ? "" : n.toString();
+            }
+
+            @Override
+            public Integer fromString(String text) {
+                try {
+                    return Math.max(min, Math.min(max, Integer.parseInt(text.strip())));
+                } catch (NumberFormatException e) {
+                    return factory.getValue();
+                }
+            }
+        });
+        final Spinner<Integer> spinner = new Spinner<>(factory);
+        spinner.setEditable(true);
+        // sadece rakam, en fazla 4 basamak
+        spinner.getEditor().setTextFormatter(new TextFormatter<>(c -> c.getControlNewText().matches("\\d{0,4}") ? c : null));
+        return spinner;
     }
 
     /** Alan altındaki satır içi hata metni. */

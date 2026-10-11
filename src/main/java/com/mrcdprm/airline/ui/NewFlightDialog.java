@@ -39,7 +39,7 @@ public final class NewFlightDialog extends Dialog<List<Flight>> {
     private final ComboBox<AircraftType> aircraft = new ComboBox<>();
     private final TextField economy = Ui.amountField();
     private final TextField business = Ui.amountField();
-    private final Spinner<Integer> days = new Spinner<>(1, FlightService.MAX_REPEAT_DAYS, 7);
+    private final Spinner<Integer> days = Ui.numberSpinner(1, FlightService.MAX_REPEAT_DAYS, 7, 1);
     private final Label info = Ui.muted("");
     private final Label error = Ui.errorLabel();
     private List<Flight> created;
@@ -58,7 +58,6 @@ public final class NewFlightDialog extends Dialog<List<Flight>> {
         aircraft.setValue(AircraftType.A320);
         aircraft.setCellFactory(l -> aircraftCell());
         aircraft.setButtonCell(aircraftCell());
-        days.setEditable(true);
         origin.valueProperty().addListener((obs, o, n) -> suggest());
         destination.valueProperty().addListener((obs, o, n) -> suggest());
         time.textProperty().addListener((obs, o, n) -> updateInfo());

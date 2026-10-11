@@ -8,7 +8,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.VBox;
 
 /** Rötar girişi: kaç dakika gecikeceği; yeni kalkış ve varış saati anında gösterilir. */
@@ -19,9 +18,7 @@ public final class DelayDialog extends Dialog<Integer> {
         setTitle(I18n.t("flights.delay"));
         Theme.style(getDialogPane());
 
-        final Spinner<Integer> minutes = new Spinner<>(new SpinnerValueFactory.IntegerSpinnerValueFactory(5,
-                FlightService.MAX_DELAY_MINUTES, 30, 5));
-        minutes.setEditable(true);
+        final Spinner<Integer> minutes = Ui.numberSpinner(5, FlightService.MAX_DELAY_MINUTES, 30, 5);
         final Label preview = new Label();
         final Runnable update = () -> preview.setText(I18n.t("delay.preview",
                 I18n.clock(f.departure().plusMinutes(minutes.getValue())), I18n.clock(f.arrival().plusMinutes(minutes.getValue()))));
