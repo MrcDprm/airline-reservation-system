@@ -237,7 +237,8 @@ public final class BookingService {
     private synchronized BookingDetail resolve(Connection c, BookingKey key) throws SQLException {
         final LocalDateTime now = airline.now();
         if (blockedUntil != null && blockedUntil.isAfter(now))
-            throw new AirlineException("tooManyLookups", Math.max(1, Duration.between(now, blockedUntil).toSeconds()));
+            // int olarak verilir: long argümanlar hata metninde para tutarı olarak biçimlenir
+            throw new AirlineException("tooManyLookups", (int) Math.max(1, Duration.between(now, blockedUntil).toSeconds()));
         final String pnr = key == null ? null : Codes.normalizePnr(key.pnr());
         Optional<BookingDetail> found = Optional.empty();
         if (pnr != null && key.lastName() != null) {

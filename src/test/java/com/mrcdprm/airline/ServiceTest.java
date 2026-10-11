@@ -248,7 +248,11 @@ class ServiceTest {
         for (int i = 0; i < 5; i++)
             assertEquals("bookingNotFound", code(() -> airline.bookings().find(new BookingKey("ABCDEF", "Kaya"))));
         // doğru bilgiyle bile kısa süre beklenir
-        assertEquals("tooManyLookups", code(() -> airline.bookings().find(new BookingKey(d.booking().pnr(), "Yılmaz"))));
+        final AirlineException blocked = assertThrows(AirlineException.class,
+                () -> airline.bookings().find(new BookingKey(d.booking().pnr(), "Yılmaz")));
+        assertEquals("tooManyLookups", blocked.code());
+        // saniye int olmalı: long argümanlar hata metninde para tutarı olarak biçimlenir
+        assertEquals(60, blocked.args()[0]);
         t.clock.advance(Duration.ofSeconds(61));
         assertNotNull(airline.bookings().find(new BookingKey(d.booking().pnr(), "Yılmaz")));
     }
