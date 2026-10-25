@@ -147,15 +147,6 @@ ISCC installer\AirlineReservations.iss
 - **Drawing documents.** The e-ticket and boarding passes are drawn with PDFBox; I implemented the Code 39 barcode myself (each character is 5 bars and 4 spaces, 3 of them wide).
 - **JavaFX compared to Windows Forms.** Layout panes instead of absolute positions, CSS instead of property grids, `Task` to keep slow work off the UI thread, and a `TableView` with custom cells for progress bars and status badges.
 
-## Future Plans
-
-- Round-trip and multi-city search
-- Baggage and meal add-ons
-- Online payment simulation
-- Flight status page for passengers
-- Email notifications for delays and cancellations
-- A client-server version with a central database
-
 ## License
 
 [MIT](LICENSE) © 2026 Miraç Deprem
