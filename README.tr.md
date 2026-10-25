@@ -147,15 +147,6 @@ ISCC installer\AirlineReservations.iss
 - **Belge çizmek.** E-bileti ve biniş kartlarını PDFBox ile çizdim; Code 39 barkodunu kendim yazdım (her karakter 5 çubuk ve 4 boşluk, bunların 3'ü geniş).
 - **Windows Forms'a kıyasla JavaFX.** Mutlak konumlar yerine yerleşim panelleri, özellik pencereleri yerine CSS, yavaş işleri arayüz iş parçacığından uzak tutmak için `Task`, ilerleme çubukları ve durum rozetleri için özel hücreli `TableView`.
 
-## Gelecek Planları
-
-- Gidiş-dönüş ve çok duraklı arama
-- Bagaj ve yemek ekleri
-- Online ödeme simülasyonu
-- Yolcular için uçuş durumu sayfası
-- Rötar ve iptallerde e-posta bildirimi
-- Merkezî veritabanlı istemci-sunucu sürümü
-
 ## Lisans
 
 [MIT](LICENSE) © 2026 Miraç Deprem
